@@ -1,0 +1,64 @@
+solution A)))))
+
+n, m= map(int, input().split())
+
+result= 0
+
+for i in range(n):
+    data= list(map(int, input("m개의 숫자를 입력하십시오>").split()))
+    min_value=min(data)
+    result=max(result, min_value)
+print(result)
+
+
+
+
+solution B))))
+
+
+n, m= map(int, input().split())
+
+result= 0
+
+for i in range(n):
+    data= list(map(int, input("m개의 숫자를 입력하십시오>").split()))
+    min_value= 10001
+    for element in data:
+        min_value= min(min_value, element)
+    result= max(result, min_value)
+
+print(result)
+
+
+
+#
+
+
+1. 변수선언할때는 
+
+
+for i in range(n):
+    if mi(i)< result:
+        result= mi(i)
+        
+처럼 ()를 포함할 수 없다.
+
+2. min과 max 함수를 알아야 한다.
+괄호에는 다음과 같은 것들이 들어갈 수 있다.
+min(iterable, n1) 이런식으로도 가능하다.
+
+min, max(n1, n2, n3, ...)
+Or:
+min, max(iterable)
+
+3. 
+
+
+min_value= min(min_value, element)
+        
+result=max(result, min_value)
+
+이런 꼴을 잘 
+
+
+        
