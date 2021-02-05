@@ -1,0 +1,38 @@
+n= int(input())
+move= input().split()
+x,y= 1, 1
+
+dx= [0, -1, 0, 1] #동북서남
+dy= [1, 0, -1, 0]
+direction=['R', 'U', 'L', 'D']
+
+for movement in move:
+    for i in range(len(direction)):
+        if movement==direction[i]:
+            nx= x+ dx[i]
+            ny=y+ dy[i]
+
+    if nx<1 or ny<1 or nx>n or ny>n:
+        continue
+    x,y= nx, ny
+
+print(x,y)
+
+#
+
+1. 일반적으로 알고리즘 문제에서의 2차원 공간은 행렬의 의미로 사용된다. 
+데카르트 좌표계와 혼동x
+
+2. 이런 유형의 문제는 방향벡터를 이용한다.
+
+dx= [0, -1, 0, 1] #동북서남
+dy= [1, 0, -1, 0]
+direction=['R', 'U', 'L', 'D']
+
+3. for 반복문에서도 break와 continue를 사용할 수 있다.
+break: 반복문 끝낼때
+continue: 반복문의 현재 반복을 생략할 때
+
+4.  nx라는 새로운 변수를 설정해 놨다가 result가 될 x에
+부여하기 전에, 특정 조건을 만족하면 continue를 이용하여
+다음 반복으로 넘어가는 방법. 이를 잊지 말자.
