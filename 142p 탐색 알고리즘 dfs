@@ -1,0 +1,33 @@
+def dfs(graph, v, visited):
+  visited[v]= True
+  print(v, end=' ')
+  for i in graph[v]:
+    if not visited[i]:    # if True문과 비슷하다. 따라서 여기에서는 visited[i]가 Flase일 경우를 가르키는 것이다.
+      dfs(graph, i, visited)
+
+graph=[
+  [],
+  [2,3,8],
+  [1,7],
+  [1,4,5],
+  [3,5],
+  [3,4],
+  [7],
+  [2,6,8],
+  [1,7]
+]
+
+visited= [False]*9
+
+dfs(graph, 1, visited)
+
+
+
+1. graph는 첫번째 노드부터 차례대로 연결된 노드들을 표시한 것이다. 
+이때 숫자가 작은 것들부터 써 주어야 작은 번호부터 처리할 수 있다.
+
+2. visited라는 리스트는 빈노드, 1번노드, 2번노드, ...가 트루인지 뻘스인지를 원소로 가진다.
+따라서 visited[i] 가 False로 나오면 그 노드는 방문한 노드가 아니라는 것을 알 수 있다. 
+
+3.visited라는 False로만 이루어진 리스트를 만든 후에 이를 True로 바꿔주는 방식으로 방문을
+체크한다.
