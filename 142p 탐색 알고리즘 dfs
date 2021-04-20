@@ -21,6 +21,7 @@ visited= [False]*9
 
 dfs(graph, 1, visited)
 
+0. v는 노드의 번호이다. 이 번호를 맞춰주기 위해서 graph에 빈 괄호를 추가하고 flase를 9개 만든 것!
 
 
 1. graph는 첫번째 노드부터 차례대로 연결된 노드들을 표시한 것이다. 
