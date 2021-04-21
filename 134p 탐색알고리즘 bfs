@@ -1,0 +1,38 @@
+from collections import deque
+
+def bfs(graph, start, visited):
+    #삽방
+    queue= deque([start])
+    visited[start]= True
+
+    while queue:
+        #꺼
+        v= queue.popleft()
+        print(v, end='')
+        for i in graph[v]:
+            if not visited[i]:
+            #삽방
+                queue.append(i)
+                visited[i]= True
+
+graph= [
+    [],
+    [2,3,8],
+    [1,7],
+    [1,4,5],
+    [3,5],
+    [3,4],
+    [7],
+    [2,6,8],
+    [1,7]
+]
+
+visited= [False]*9
+
+bfs(graph, 1, visited)
+
+1. 핵심은 기존꺼 "꺼내고" 인접노드 "삽입하고" "방문처리" => 꺼삽방
+
+2. graph하고 visited먼저 만들고 시작하자
+
+3. while queue 는 queue가 빌때까지란 뜻이다.
