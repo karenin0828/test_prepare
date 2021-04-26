@@ -37,3 +37,19 @@ prit(result)
 4. 처음 0인 부분만 true로 만들고 그 주위는 다 false가 되게 바꾸는 방식이다.
 
 5. i와 j의 for반복문 중첩은 모든 원소를 다 선택하는 방법이다.
+
+6.      dfs(x-1, y)
+        dfs(x, y-1)
+        dfs(x+1, y)
+        dfs(x, y+1)
+        return True
+        
+        이 부분에서 
+        False
+        True
+        False
+        False
+        return True
+        처럼 되어도 중간에 있는 true나 false는 return True라는 결과에 영향을 주지 않으니 상관 없는 것인듯..
+        
+      
