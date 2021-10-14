@@ -1,0 +1,13 @@
+n= int(input())
+array=[]
+for i in range(n):
+  array.append(int(input()))
+
+array= sorted(array, reverse= True)
+
+for i in array:
+  print(i, end= ' ')
+  
+1. 하나씩만 입력받을때는 map 안쓰고 그냥 int룰 바로쓴다
+
+2. sort함수 안의 기본매개변수 중에 reverse가 있음
