@@ -1,0 +1,15 @@
+n= int(input())
+
+array= []
+for i in range(n):
+  input_data= input().split()
+  array.append((input_data[0], int(input_data[1])))
+
+array= sorted(array, key= lambda student: student[1])
+
+for student in array:
+  print(student[0], end=' ')
+  
+
+1. 두개이상의 요소로 되어있는 걸 어떤 하나로 정렬하고 싶을때는 sorted함수 안의 매개변수인 key값을 변경한다.
+ key= lambda 뒤의 student자리는 array의 각 요소를 뜻한다. 익숙해져야 할듯
