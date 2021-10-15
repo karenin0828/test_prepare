@@ -1,0 +1,23 @@
+n,k= map(int, input().split())
+arrayA= list(map(int, input().split()))
+arrayB= list(map(int, input().split()))
+
+
+
+arrayA.sort()
+arrayB.sort(reverse= True)
+
+for i in range(k):
+  if arrayA[i]<arrayB[i]:
+    arrayA[i],arrayB[i]= arrayB[i],arrayA[i]
+
+  else:
+    break
+print(sum(arrayA))
+
+1. map이용할때 이 리스트를 이용할 작정이라면(n,k 같은거 아니면) map 앞에 list를 붙여 주어야 한다.
+
+2. A=[] 
+   A.append(list(map~~  // 해버리면 더블 리스트가 되어버린다.
+   
+3. A의 가장 작은수가 B의 가장 큰 수보다 커버리는 경우도 고려를 해야 한다.
