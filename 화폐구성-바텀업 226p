@@ -1,0 +1,25 @@
+n,m= map(int, input().split())
+
+array=[]
+for i in range(n):
+  array.append(int(input()))
+
+d= [10001]*(m+1)
+
+d[0]=0
+for i in range(n):
+  for j in range(array[i], m+1):
+    if d[j-array[i]]!= 10001:
+      d[j]= min(d[j], d[j-array[i]]+1)
+
+if d[m]==10001:
+  print(-1)
+else:
+  print(d[m])
+  
+
+1. m원의 인덱스 값을 알아내기 위해서 0원부터 차례대로 갱신해간다는 아이디어
+
+2. i는 각각의 화폐단위 j는 각각의 금액
+
+3. 여러번 써보며 코드를 음미하자
