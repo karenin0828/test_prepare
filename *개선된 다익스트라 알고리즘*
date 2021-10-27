@@ -1,0 +1,65 @@
+import heapq
+import sys
+input= sys.stdin.readline
+INF= int(1e9)
+
+n, m= map(int, input().split())
+
+start= int(input())
+
+graph= [[] for i in range(n+1)]
+
+distance= [INF]*(n+1)
+
+for _ in range(m):
+  a,b,c= map(int, input().split())
+  graph[a].append((b,c))
+
+def dijkstra(start):
+  q=[]
+
+  heapq.heappush(q,(0,start))
+  distance[start]= 0
+  while q:
+    dist, now= heapq.heappop(q)
+    if distance[now]<dist:
+      continue
+    for i in graph[now]:
+      cost= dist+ i[1]
+      if cost< distance[i[0]]:
+        distance[i[0]]=cost
+        heapq.heappush(q, (cost, i[0]))
+dijkstra(start)
+
+for i in range(1, n+1):
+  if distance[i]==INF:
+    print("infinity")
+  else:
+    print(distance[i])
+    
+    
+#######
+
+
+1. import sys
+input= sys.stdin.readline은 입력되는 데이터의 수가 많을 때 input을 더 빠르게 동작하게 하는 방법이다.
+
+2. 그래프를 표현할 때 리스트는 (노드의 개수+1)로 할당하여 노드의 번호를 인덱스로 하여 리스트에 접근할 수
+있도록 한다. 그래프를 표현할 때 많이 사용되는 방법이다.
+
+3. heap 자료구조는 우선순위 큐라고 불린다. import heapq
+
+4. graph는 인덱스를 노드번호로 하여 그 노드와 연결된 다른 노드들의 정보와 그 노드들까지의 거리정보를 나타낸 리스트이다. 
+   이때 (연결된 노드, 거리) (연결된 노드, 거리) 처럼 나타낸다.
+   distance는 인덱스를 노드번호로 하여 시작점에서의 거리만을 표시한다.
+
+#24
+큐에 있는 노드를 꺼내고,
+
+#25,26
+꺼낸 노드까지의 거리가 기존 그래프에 입력된 거리보다 멀다면 무시하고
+
+#27~31
+그게 아니라면 그 노드와 연결된 다른 노드들을 하나하나 확인해가며 
+그래프를 갱신할 수 있는지 확인한다. 갱신에 성공했다면 성공한 노드들을
+큐에 넣는다
