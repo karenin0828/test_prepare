@@ -1,0 +1,33 @@
+INF= int(1e9)
+n,m= map(int, input().split())
+
+graph= [[INF]*(n+1) for _ in range(n+1)]
+
+for a in range(1, n+1):
+  for b in range(1, n+1):
+    if a==b:
+      graph[a][b]= 0
+
+for _ in range(m):
+  a, b= map(int, input().split())
+  graph[a][b]= 1
+#a에서 b로가나 b에서 a로 가나 같다는걸 표시해줬어야...
+
+x, k= map(int, input().split())
+
+for j in range(1, n+1):
+  for a in range(1, n+1):
+    for b in range(1, n+1):
+      graph[a][b]= min(graph[a][b], graph[a][j]+ graph[j][b])
+      
+distance= graph[1][k]+graph[k][x]
+
+if distance>= INF:
+  print("=1")
+else:
+  print(distance)
+###
+
+1. 각 노드 사이의 방향도 고려해야 한다. 만약 같다면 13번째 줄에서 graph[b][a]=1 도 넣어주어야 한다.
+
+2. 시작노드가 a가 아니라 1인데 a로 잘못씀
