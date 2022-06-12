@@ -1,0 +1,5 @@
+메모리 재할당은 필요한 공간을 늘리는 것
+예를 들어 a=[0]*3에서 a=[1,0,0]이면 메모리 재할당이 아니지만
+a=[0]*4면 메모리 재할당이다
+
+https://blog.esukmean.com/2020/%EB%A9%94%EB%AA%A8%EB%A6%AC-reallocation/
