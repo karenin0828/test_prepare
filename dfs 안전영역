@@ -1,0 +1,50 @@
+import sys
+sys.setrecursionlimit(100000)
+
+n=int(input())
+graph=[list(map(int, input().split())) for _ in range(n)]
+
+dx=[0,0,1,-1]
+dy=[1,-1,0,0]
+
+
+def dfs(x,y,h):
+
+  visited[x][y]=True
+  for i in range(4):
+    nx=x+dx[i]
+    ny=y+dy[i]
+    if 0<=nx<n and 0<=ny<n:
+      if not visited[nx][ny]: 
+      
+        if graph[nx][ny]>h:
+          dfs(nx,ny,h)
+
+result=0
+
+for i in range(max(map(max, graph))):
+  visited=[[False]*n for _ in range(n)]
+  count=0
+  for j in range(n):
+    for k in range(n):
+      if not visited[j][k] and graph[j][k]>i:
+        dfs(j,k,i)
+        count+=1
+  result=max(result, count)
+
+print(result)
+        
+########################################
+
+
+
+1. 0과 1로 이루어진 간단한 dfs가 아니면 dx dy만들어서 조건을 따져야 한다
+
+2. 일단 방문처리 똑같이 해주는 것은 같다
+
+3.방문처리 이후 range(4)로 돌아가면서 nx ny받고 이들의 범위부터 시작해서 조건을 더해가야함
+
+4. 여기서 결국 dfs는 방문처리를 하는 용도였음. 다만 이게 전부가 아니라 여기에 graph[i][k]값까지 추가된 것
+   나중에 답을 구하는 코드에서도 다른문제처럼 방문했는지, 조건 하나만 따지는 게 아니라 높이라는 조건까지 추가했음
+   
+5. 중첩 리스트의 최소/최대값은 max(map(max,)))기억하자
