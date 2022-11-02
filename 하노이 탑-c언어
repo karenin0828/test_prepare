@@ -1,0 +1,39 @@
+#define CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+void hanoi(int,char,char,char);
+
+int main()
+{
+  hanoi(3,'a','b','c');
+  }
+  
+void hanoi(int n, char from, char temp, char to)
+{
+  if (n==1)
+    printf("%d번째 원반은 %c에서 %c로\n",n,from,to);
+  else
+    {
+      hanoi(n-1,from,to,temp);
+      printf("%d번째 원반은 %c에서 %c로\n",n,from,to);
+      hanoi(n-1,temp,from,to);
+    }
+    
+}
+
+################
+
+하노이 탑
+
+포인트는 재귀
+
+**n개를 목표막대로 옮기는 것은**
+1. 하나남을때는 목적지로 이동가능하니까 조건 써주기
+
+2. 아닐때는
+ (1) n-1개 임시막대로 옮기기
+(2)n번째거 목표막대로 옮기기
+(3)**n-1개를 목표막대로 옮기기**[(1)에서 n-1개를 임시막대로 옮겨주었으므로 시작은 임시막대이다.]
+
+
+n-1개 다른데로 옮기고 프린트, 또 옮기고 프린트
