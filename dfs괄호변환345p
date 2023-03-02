@@ -1,0 +1,55 @@
+def solution(p):
+    answer = ''
+    if p=='':
+        return answer
+    index=balance(p)
+    u= p[:index+1]
+    v= p[index+1:]
+    
+    if right(u):
+        answer=u+solution(v)
+    else:
+        answer+='('
+        answer+=solution(v)
+        answer+=')'
+        n_u=list(u[1:-1])
+        for i in range(len(n_u)):
+            if n_u[i]=='(':
+                n_u[i]=')'
+            else:
+                n_u[i]='('
+        answer+="".join(n_u)
+    
+    return answer
+
+def balance(p):
+    count=0
+    for i in range(len(p)):
+        if p[i]=='(':
+            count+=1
+        else:
+            count-=1
+        if count==0:
+            return i
+        
+def right(p):
+    count=0
+    for i in range(len(p)):
+        if p[i]=='(':
+            count+=1            
+        else:
+            if count==0:
+                return False
+            count-=1
+    return True
+
+###
+
+1. 균형잡힌 문자열이 되는 순간의 인덱스를 구할 함수가 필요함
+
+2. 어떤 문자열을 입력 받았을 떄 올바른 문자열인지 판단할 함수가 필요함.
+   이때 count가 0일때 '('가 먼저 나오는 경우는 땡
+3. 문자열의 각각 문자를 활용하기 위해 list로 바꾸어 준 것임. 그냥은 안됨
+   마지막에 join을 이용해서 다시 문자열로 바꾸어 주는 것 잊지 만ㄹ고
+4. 언제 answer을 return 해야하고 안해야하는지 헷갈림. 다시 공부할 필요 있음
+5. 주어진대로 적으면 된다. 이해하려고 하는 문제가 
