@@ -1,0 +1,38 @@
+from collections import deque
+n,k=map(int,input().split())
+graph=[]
+data=[] #바이러스 정보 저장할 곳
+for i in range(n):
+  graph.append(list(map(int,input().split())))
+s,x,y=map(int,input().split())
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+for i in range(n):
+  for j in range(n):
+    if graph[i][j]!=0:
+      data.append((graph[i][j],0,i,j))
+data.sort()
+
+q=deque(data)
+while q:
+  virus,now_s,i,j=q.popleft()
+  if now_s==s:
+    
+    break
+  for k in range(4):
+    nx=i+dx[k]
+    ny=j+dy[k]
+    if nx>=0 and nx<n and ny>=0 and ny<n:
+      if graph[nx][ny]==0:
+        graph[nx][ny]=virus
+        q.append((virus,now_s+1,nx,ny))
+
+print(graph[x-1][y-1])
+
+1. 바이러스는 번호순대로 퍼진다는 것에 착안하여 큐를 이용하기
+
+2. 바이러스라는 한 지점을 기준으로 퍼져나가는 거니까 마찬가지로 dx dy이용하기
+
+3. dfs의 매개변수 전달받는 방식을 큐를 이용해서도 비슷하게 구현할 수 있음ㄱ 
