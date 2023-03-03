@@ -1,0 +1,62 @@
+n=int(input())
+
+a=list(map(int, input().split()))
+
+plus,sub,mult,div=map(int, input().split())
+
+maxi=-1e9
+mini=1e9
+
+def dfs(i,x):
+  global plus,sub,mult,div,maxi,mini
+  if i==n:
+    maxi=max(maxi, x)
+    mini=min(mini,x)
+  else:
+    if plus>0:
+      plus-=1
+      dfs(i+1,x+a[i])
+      plus+=1
+    if sub>0:
+      sub-=1
+      dfs(i+1,x-a[i])
+      sub+=1
+    if mult>0:
+      mult-=1
+      dfs(i+1,x*a[i])
+      mult+=1
+    if div>0:
+      div-=1
+      dfs(i+1,int(x/a[i]))
+      div+=1
+
+dfs(1,a[0])
+print(maxi)
+print(mini)
+
+####
+dfs로 하나하나 따져나가면 될듯
+
+큐를 이영해서 기호의 개수가 0이 될때까지 빼는 방식으로 해야하나?
+
+a1 a2 a3등등을 어떻게 받아야 하는지 모르겠음. 일단 리스트로 받은 후에
+인덱스끼리 계산하면 될듯
+
+A인덱스 0인거 1인거 계산해서 1인걸로 초기화하고..
+
+서로다른 기호들을 어떻게 분배해야 할지 모르겠음
+
+큐에다가 각 기호의 정보와 몇개 남았는지를 전달하는 거지
+큐를 하나씩 빼가면서 분배를 하면 될거 같긴 한데  A방식으로 한다면
+이는 불가능함 
+
+###답지 보고###
+
+1. 큐를 뺴가면서 하는 방식이 아니더라도 dfs를 통해 비슷하게 구현할 수 있다. 
+내가 생각했던 A방식이 맞았음. 단 반복문은 사용할 필요가 없었다. dfs를 통해
+이어나갈 것이기 때문에.. +1 -1하는 방식을 잘 기억해서 이용해보자
+
+2. x+=a[i] 이런식으로 따로 빼는게 아니라 dfs(x+=a[i])이런식으로 해주면
+따로 빼줄 필요가 없어져 간단하다
+
+      
