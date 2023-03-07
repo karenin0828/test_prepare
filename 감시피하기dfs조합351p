@@ -1,0 +1,130 @@
+from itertools import combinations
+
+n=int(input())
+board= []
+teachers=[]
+spaces=[]
+
+for i in range(n):
+  board.append(list(input().split()))
+  for j in range(n):
+    if board[i][j]=='T':
+      teachers.append((i,j))
+    if board[i][j]=='X':
+      spaces.append((i,j))
+
+def watch(x,y,direction):  #선생기준, 학생발견 true
+  if direction==0:
+    while y>=0:
+      if board[x][y]=='S':
+        return True
+      if board[x][y]=='O':
+        return False
+      y-=1
+  if direction==1:
+    while y<n:
+      if board[x][y]=='S':
+        return True
+      if board[x][y]=='O':
+        return False
+      y+=1
+  if direction==2:
+    while x>=0:
+      if board[x][y]=='S':
+        return True
+      if board[x][y]=='O':
+        return False
+      x-=1
+  if direction==3:    
+    while x<n:
+      if board[x][y]=='S':
+        return True
+      if board[x][y]=='O':
+        return False
+      x+=1
+  return False
+
+def process():
+  for x,y in teachers:
+    for i in range(4):
+      if watch(x,y,i):
+        return True
+  return False
+
+find= False
+
+for data in combinations(spaces,3):
+  for x,y in data:
+    board[x][y]='O'
+  if not process():
+    find=True
+    break
+  for x,y in data:
+    board[x][y]='X'
+
+if find:
+  print("YES")
+else:
+  print("NO")
+  
+  
+###정리되지 않은 생각
+
+#리스트를 3개 만들기
+
+맵 정보 저장하는 리스트
+구조물을 세울 수 있는 좌표 리스트
+선생들의 위치 리스트
+
+
+#먼저 구조물을 세울 수 있는 좌표 리스트 먼저 만들자
+
+#검사하는 함수를 어떻게 만들 것이냐
+
+while문을 이용해서 while x>0 x<n y>0 y<n 이렇게 4개 만들면 될듯
+각각에 대해서 학생 발견하면 거기서부터 시작하는 걸로
+o를 만나면 리턴 t를 만나도 리턴// 이렇게 하면 각각의 좌표에 대해서 다 해야된다는 뜻인데.. 선생 기준으로 하는게 낫지 않나?
+//학생 기준으로 하면 되니까 상관 없을듯..//검사하는 함수는 학생의 좌표를 매개변수로 받아야 할듯
+//선생의 위치를 저장하는 목적은 뭐지? 없을 것 같은데..
+//check를 어떻게 설정해야할까? 방향은 4개인데.. o를 만나거나 끝까지 도달할때마다 +1해줘서 4가 되면 가능하게??
+이렇게 하면 너무 복잡함..그냥 어느 한군데라도 선생을 만나면 False로 바꾸고 4개 반복문 다음에 check가 False라면
+전체도 False가 되도록 하자
+
+
+#조합을 이용해서 구조물을 세운 후에 검사하고 다시 구조물 없애주기//함수 밖에 check=False로 놓고 검사해서 하나라도 
+발견되면 True갈기기
+1. for case in combination(구조물 리스트,2)
+ x,y=case
+graph[x][y]='O'
+for i in range(n):
+	for j in range(n):
+		if graph[i][j]=='S':
+			inspect(i,j)
+
+obstacle을 놓을 수 있는 경우의 수가 여러개 있다. combination은 그 경우의 수들의 리스트이다.
+3개를 놓아야 하는데 어떻게 구현하라는거야??
+
+obstacle에서 combination을 이용해서 3개를 뽑으면 [((1,1),(2,2),(3,3)),((1,4),(2,6),(7,3)),.....]이런 식의 리스트가 나올텐데 이를
+어떻게 이용해야할까? 
+
+###정리된 생각
+
+1. 선생의 리스트를 만들면 나중에 for x,y in teachers 를 통해서 검사를 빠르게 할 수 있다. 그것이 선생들 
+
+2. 검사하기 위해서 함수를 두개 만들어야 함. 하나의 함수watch는 선생의 좌표와 방향을 입력받으면 학생을 찾을 수 
+있는지 여부를 검사하는 함수. 찾으면 True 나머지 하나의 함수process는 모든 방향에 대해서 검사하여 하나라도 학생을 찾으면
+True를, 다 찾지 못했으면 False를 리턴하는 함수이다. 나중에 process만 확인하면 된다. 근데 이 함수에서 true false는 반대로
+되도 상관없음
+
+3. 조합을 이용할 때 이중 반복문을 이용한다. 첫번째, 구조물을 놓을 수 있는 좌표의 모음에서 3가지 좌표를 뽑고, 그 3가지
+좌표들을 하나씩 반복하여 구조물을 놓는다. 구조물 놓아서 검사해 본 후에 구조물 없애주는 것도 잊지 말고
+
+
+
+
+
+
+
+    
+    
+      
