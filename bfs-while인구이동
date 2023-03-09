@@ -1,0 +1,111 @@
+from collections import deque
+
+result=0
+n,l,r=map(int, input().split())
+graph=[]
+for _ in range(n):
+  graph.append(list(map(int, input().split())))
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+def bfs(x,y):
+  union=[]
+  q=deque()
+  
+  q.append((x,y))
+  union.append((x,y))
+  while q:
+    x,y=q.popleft()
+    for i in range(4):
+      nx=x+dx[i]
+      ny=y+dy[i]
+      if 0<=nx<n and 0<=ny<n and visited[nx][ny]==0:
+        if l<=abs(graph[x][y]-graph[nx][ny])<=r:
+          visited[nx][ny]=1
+          q.append((nx,ny))
+          union.append((nx,ny))
+  return union
+
+while 3:
+  flag=0 # flag 1이면 연합이 한번이라도 일어난 것
+  visited=[[0]*n for _ in range(n)]
+  for i in range(n):
+    for j in range(n):
+      if visited[i][j]==0:
+        visited[i][j]=1 
+        country=bfs(i,j)  #country는 연합국들의 좌표를 가지는 리스트
+        if len(country)>1:
+          flag=1
+          sum_c=0 #모든 연합국 인구수의 합
+          for each in country:
+            number_e=sum([graph[a][b] for a,b in country])//len(country)
+          for a,b in country:
+            graph[a][b]=number_e
+  if flag==0:
+    break
+  else:
+    result+=1
+print(result)          
+          
+          
+          
+1. 한 나라를 기준으로 인접한 두 나라의 국경을 모두 열 수 있을 떄 우선순위는 어떻게 되는가?
+=> 국경을 열기 전에 연합이 될 수 있는 국가들을 모두 확인한 후 한번에 열면 해결될듯
+
+2. 한번 연결을 할 수 있는 곳을 찾으면 그 지점부터 bfs혹은 dfs를 이용하면 되지 않을까?
+ㄴ 모든 지점에 대해서 다 조사해야 할 것 같긴 한데...n이 50이하니까 큰 걱정은 안해도 될듯
+=> 단순하게 방문하지 않았다면 일단 방문처리,bfs처리 해주고 연결이 됐다면 특정코드 실행
+
+3. 한번에 모두 파악한 후 평균을 내는 방식으로 하지 않아도 결과는 똑같이 나올듯
+ㄴ 직접 해봤는데 이렇게 하면 안됨. 연결된 것 끼리는 마지막 까지 다 찾고 한번에 나누어야 함
+
+4. 이미 연결된 지점인지 확인할 visited 행렬도 필요할듯
+=>맞아. 근데 while문 안에서 해주어야 매번 초기화 가능
+
+5. 몇개가 연결됐는지를 확인할 count도 필요할려나?
+=> 그냥 연결된 좌표들을 리스트에 넣어주기만 하면 나중에 len을 통해 계산가능해. 그래서 필요없어
+
+6. dfs에 어떤 것들을 전달해야 할까?? 일단 좌표, count와 연결된 인구수를 나타내는 sum?
+=>좌표만 전달해주면 돼. 이걸로 모든걸 해결하려고 하지 마
+
+###
+0. visted행렬의 합이 n인 경우를 종료조건으로 하기. 이때
+연결된 것들을 분배해야 하는데 그러면 연결할 때마다 그 정보들을 따로 리스트 
+같은 곳에 저장을 해둬야 하나?
+분배하기. visited,count,sum초기화하기. dfs다시 시작하기?`
+
+1. 그래프의 모든 원소를 돌면서 방문했는지 여부를 확인 후 방문하지 않았다면, 
+(1) 방문처리하고
+(2) 그 지점을 기준으로 상하좌후 네방향으로 값 차이가 범위 안에 떨어지는지 확인하고 떨어진다면 
+다음 dfs로 넘어가기 
+<종료는 언제하지?=>visited행렬에서 방문하면 1로 초기화하고 만약 이 행렬의 합이 n이라면 종료하면 되겠당!>
+
+##해설을 본 후##
+
+1. bfs에서 모든 것을 해결하려고 하는 생각이 크게 잘못됨. bfs는 방문하지 않은 지점일 경우에 while문에서 실행하는
+걸로 생각하자
+
+2. bfs 함수에서 하는 일: 연결된 좌표들의 리스트를 return하는 것
+		       좌표 하나 입력받으면 큐에넣고 temp에 넣고 4방향에 대해서 검사하고 통과한다면 큐에넣고 temp에 넣고
+		       temp는 여기 안에서 만들어야 함.(매번 바뀌니까)
+
+3. while반복문에서 하는 일: (방문요소에 1씩 더해서 n이 됐을 떄 종료하는 식으로 복잡하게 안해도 됨. 그냥 for for이 끝나면 끝나게
+			해도 가능..)
+			1. 방문리스트 만들기 2. 반복문 두개 중첩. 3.방문하지 않았다면 country=bfs해주고 country가 1보다
+크다면 분배해주기. 이때 flag=1로 초기화 해주어야 함 4. flag의 값에 따라서 0이면 종료시키고 아니라면 result+=1해주기 
+			
+
+4.  연합을 나타내는 리스트만 가지고도 많은 것을 할 수 있다는 걸 기억하자
+
+5. 여러 좌표들을 포함하고 있는 리스트 a에 대해서 "for x,y in a"처럼 표시하는 것도 가능하다
+
+
+
+
+        
+
+
+      
+  
+  
