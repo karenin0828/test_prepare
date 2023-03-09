@@ -1,0 +1,53 @@
+from collections import deque
+dx = [+2, +1, -1, -2, -2, -1, +1, +2]
+dy = [+1, +2, +2, +1, -1, -2, -2, -1]
+
+t = int(input())
+
+
+def bfs(a,b,c,d):
+  q=deque()
+  q.append((a,b))
+  
+  while q:
+    x,y=q.popleft()
+    if x==c and y==d:
+      print(visited[c][d]-1)
+      return
+    for i in range(8):
+      nx=x+dx[i]
+      ny=y+dy[i]
+      if 0 <= nx < n and 0 <= ny < n and visited[nx][ny]==0:
+        visited[nx][ny]=visited[x][y]+1
+        q.append((nx,ny))
+    
+for _ in range(t):
+    n = int(input())
+    visited = [[0]*n for _ in range(n)]
+    a, b = map(int, input().split())
+    c, d = map(int, input().split())
+    visited[a][b]=1
+    bfs(a,b,c,d)
+
+  
+1. 보통은 bfs를 따로 만들 필요가 없지만 testcase를 주었을 떄는 만들어야 한다. visited에 하나씩 더해주는 기본문제와 같은구조이다. 
+
+2. 상하좌우가 아니더라도 dx dy를 이용할 수 있다
+
+#####
+
+소 이동이니까 bfs가 더 편리하지 않을까? 일단 조금 해보고 각 안서면 dfs로 바꾸어보자
+
+나이트가 한 지점에서 이동할 수 있는 가지수는 8가지.=> dx dy로 구현하는 건 아닐 것 같음..
+[(2,1), (1,2) ...] 이렇게 리스트 만들어 놓고 반복해주면 될듯
+
+<언제 안되나? 1. 범위를 벗어나면 2. 방문했던 지점에 다시 방문하면 비효율적이니까 걸러줄까? 
+이렇게 하면 무한루프에 빠지는 걸 예방할 수 있을듯> for i in range(8)안에서?
+=>이 조건을 통과할 때에는 1. count+=1해주기 큐에 이 지점 넣어주기
+
+bfs하나로 해결할 수 있는가? 아니면 다른 함수를 만들거나 while을 이용해야 하는가?
+=>그냥 bfs내에서 원하는 지점에 도달하면 min_n=min(min_n, count) 써주는 식으로 하면 될듯
+
+그냥 dfs로 하자
+
+###
