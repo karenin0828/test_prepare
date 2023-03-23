@@ -1,0 +1,27 @@
+#가능한 경우의 수는 2^n개이다. 부분수열에 포함되거나 포함되지 않거나.
+
+#recur(0,0)으로 시작하는 재귀함수를 만들면 될듯. 전해주는 인자는 두가지.
+#하나는 몇번째인지를 나타내는 i. 다른 하나는 합을 나타내는 s.
+#만약에 i번째 인자를 포함할때는 s에 i인자를 포함시켜준다.
+#종료조건은 i가 n일때
+#count는 n까지 가준 후에 한번에 세야한다. 안그러면 중복이 계속 나옴
+
+n,s=map(int, input().split())
+
+a=list(map(int,input().split()))
+count=0
+
+def recur(i,x,b):  
+  global count   
+  if i==n:
+    if x==s and b:
+      count+=1
+    return
+    
+  
+  
+  recur(i+1,x+a[i],b+1)
+  recur(i+1,x,b)
+
+recur(0,0,0)
+print(count)
