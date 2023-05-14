@@ -1,0 +1,32 @@
+import sys
+input=sys.stdin.readline
+m,n=map(int, input().split())
+graph=[list(map(int, input().split())) for _ in range(m)]
+dp=[[-1]*n for _ in range(m)]
+
+dx=[1,-1,0,0]
+dy=[0,0,1,-1]
+
+def dfs(x,y):
+  if x==m-1 and y==n-1:
+    return 1
+  if dp[x][y]!=-1:
+    return dp[x][y]
+  dp[x][y]=0
+    
+  for i in range(4):
+    nx=x+dx[i]
+    ny=y+dy[i]
+    if nx<0 or nx>=m or ny<0 or ny>=n:
+      continue
+    if graph[nx][ny]<graph[x][y]:
+      dp[x][y]+=dfs(nx,ny)
+  return dp[x][y]
+
+print(dfs(0,0))
+
+1. 하향식 dp문제이다. dfs와 결합한
+2. -1은 방문하지 않았다는 의미
+3. dp[x][y]는 x,y에서 종점까지 가능한 개수가 몇개인지
+4. dfs(0,0)
+   print(dp[m-1][n-1])이 안되는 이유에 대해서 고민중
